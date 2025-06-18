@@ -10,7 +10,7 @@ class CVForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['school', 'degree', 'start_year', 'end_year']
+        fields = ['school', 'degree', 'start_year', 'start_end']
 
     def clean_degree(self) -> str:
         degree = self.cleaned_data['degree']
@@ -27,7 +27,7 @@ class EducationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         start = cleaned_data.get('start_year')
-        end = cleaned_data.get('end_year')
+        end = cleaned_data.get('start_end')
         if start and end and end < start:
             raise forms.ValidationError('Start year must be before end year')
 
