@@ -20,7 +20,7 @@ Includes REST API support and Swagger documentation.
 ## Run Locally
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/rahimjonovali/CV-generator.git
 cd cv_generator
 python -m venv venv
 source venv/bin/activate
