@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create CV</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-5">
+    <h2>Create CV</h2>
+    <form method="post">
+        {% csrf_token %}
+        <h4>Personal Info</h4>
+        {{ cv_form.as_p }}
+
+        <h4>Education</h4>
+        {{ education_form.as_p }}
+
+        <h4>Experience</h4>
+        {{ experience_form.as_p }}
+
+        <h4>Skills</h4>
+        {{ skill_form.as_p }}
+
+        <button type="submit" class="btn btn-primary mt-3">Create</button>
+    </form>
+</body>
+</html>
