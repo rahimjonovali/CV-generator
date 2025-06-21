@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}View CV - {{ cv.full_name }}{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-sm">
+    <h2>{{ cv.full_name }}</h2>
+    <p><strong>Email:</strong> {{ cv.email }}</p>
+    <p><strong>Phone:</strong> {{ cv.phone }}</p>
+    <p><strong>Address:</strong> {{ cv.address }}</p>
+    <p><strong>Summary:</strong> {{ cv.summary }}</p>
+
+    <hr>
+    <h4>Education</h4>
+    <ul>
+        {% for edu in cv.educations.all %}
+            <li>{{ edu.degree }} at {{ edu.school }} ({{ edu.start_year }} - {{ edu.end_year }})</li>
+        {% empty %}
+            <li>No education details</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Experience</h4>
+    <ul>
+        {% for exp in cv.experiences.all %}
+            <li><strong>{{ exp.position }}</strong> at {{ exp.company }} ({{ exp.start_date }} - {{ exp.end_date }})<br>{{ exp.description }}</li>
+        {% empty %}
+            <li>No work experience</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Skills</h4>
+    <ul>
+        {% for skill in cv.skills.all %}
+            <li>{{ skill.name }}</li>
+        {% empty %}
+            <li>No skills added</li>
+        {% endfor %}
+    </ul>
+
+    <a class="btn btn-success mt-3" href="{% url 'cv_pdf' cv.pk %}">Download as PDF</a>
+</div>
+{% endblock %}

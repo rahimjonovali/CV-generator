@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<div class="text-center p-5">
+    <h1 class="mb-4">Welcome to the CV Generator</h1>
+    <a class="btn btn-primary btn-lg" href="{% url 'create_cv' %}">Start Creating Your CV</a>
+</div>
+{% endblock %}

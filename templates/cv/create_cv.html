@@ -1,26 +1,98 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create CV</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body class="container py-5">
-    <h2>Create CV</h2>
-    <form method="post">
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Create CV{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+    <h2 class="mb-4">📝 Create Your CV</h2>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <h4>Personal Info</h4>
-        {{ cv_form.as_p }}
 
-        <h4>Education</h4>
-        {{ education_form.as_p }}
+        <!-- Personal Info -->
+        <h4 class="text-primary">👤 Personal Information</h4>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Full Name</label>
+                {{ cv_form.full_name|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                {{ cv_form.email|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Phone</label>
+                {{ cv_form.phone|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Address</label>
+                {{ cv_form.address|as_crispy_field }}
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Summary</label>
+                {{ cv_form.summary|as_crispy_field }}
+            </div>
+        </div>
 
-        <h4>Experience</h4>
-        {{ experience_form.as_p }}
+        <hr>
 
-        <h4>Skills</h4>
-        {{ skill_form.as_p }}
+        <!-- Education -->
+        <h4 class="text-primary">🎓 Education</h4>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">School</label>
+                {{ education_form.school|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Degree</label>
+                {{ education_form.degree|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Start Year</label>
+                {{ education_form.start_year|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">End Year</label>
+                {{ education_form.start_end|as_crispy_field }}
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Create</button>
+        <hr>
+
+        <!-- Experience -->
+        <h4 class="text-primary">💼 Work Experience</h4>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Company</label>
+                {{ experience_form.company|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Position</label>
+                {{ experience_form.position|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Start Date</label>
+                {{ experience_form.start_date|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">End Date</label>
+                {{ experience_form.end_date|as_crispy_field }}
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Description</label>
+                {{ experience_form.description|as_crispy_field }}
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Skills -->
+        <h4 class="text-primary">🛠 Skills</h4>
+        <div class="mb-3">
+            <label class="form-label">Skill Name</label>
+            {{ skill_form.name|as_crispy_field }}
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3 w-100">✅ Create CV</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

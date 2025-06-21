@@ -5,9 +5,11 @@ certifi==2025.6.15
 cffi==1.17.1
 chardet==5.2.0
 charset-normalizer==3.4.2
+crispy-bootstrap5==2025.6
 cryptography==45.0.4
 cssselect2==0.8.0
 Django==5.2.3
+django-crispy-forms==2.4
 djangorestframework==3.16.0
 drf-yasg==1.21.10
 html5lib==1.1

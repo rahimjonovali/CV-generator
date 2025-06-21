@@ -5,6 +5,7 @@ from .forms import CVForm, EducationForm, SkillForm, ExperienceForm
 from django.template.loader import get_template
 from django.http import HttpResponse
 from xhtml2pdf import pisa
+from django.contrib import messages
 class CVCreateView(CreateView):
    model = CV
    form_class = CVForm
@@ -27,6 +28,7 @@ class CVCreateView(CreateView):
           skill = skill_form.save(commit=False)
           skill.cv = cv
           skill.save()
+          messages.success(request, 'CV successfully created!')
           return redirect('cv_list')
 
        return render(request, self.template_name,{
@@ -35,6 +37,7 @@ class CVCreateView(CreateView):
              'experience_form': experience_form,
              'skill_form': skill_form
            })
+
 
    def get(self, request, *args, **kwargs):
       return render(request, self.template_name, {
@@ -48,10 +51,32 @@ class CVListView(ListView):
       template_name = 'cv/cv_list.html'
       context_object_name = 'cvs'
 
-def generate_pdf(request,pk):
+def generate_pdf(request, pk):
     cv = get_object_or_404(CV, pk=pk)
+    educations = Education.objects.filter(cv=cv)
+    experiences = Experience.objects.filter(cv=cv)
+    skills = Skill.objects.filter(cv=cv)
+
+    context = {
+        'cv': cv,
+        'educations': educations,
+        'experiences': experiences,
+        'skills': skills,
+    }
+
     template = get_template('cv/cv_pdf.html')
-    html = template.render({'cv':cv})
+    html = template.render(context)
+
     response = HttpResponse(content_type='application/pdf')
-    pisa_status = pisa.CreatePDF(html, response)
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF', status=500)
     return response
+
+def welcome(request):
+    return render(request, 'welcome.html')
+
+def cv_view(request,pk):
+    cv = get_object_or_404(CV, pk=pk)
+    return render(request,'cv/view_cv.html',{'cv':cv})
